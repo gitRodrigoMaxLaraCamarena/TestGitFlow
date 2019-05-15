@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Nearme</string>
+    <string name="url_loginbackground">
+        https://previews.123rf.com/images/mix3r/mix3r1505/mix3r150500143/39763212-concepto-de-fondo-de-viajes-mundial-avi%C3%B3n-iconos-planos-image-holidays-concepto-de-turismo-y-vacation-s.jpg
+    </string>
+    <string name="mail_enterprise">
+        smartsolutions@gmail.com
+    </string>
+</resources>
