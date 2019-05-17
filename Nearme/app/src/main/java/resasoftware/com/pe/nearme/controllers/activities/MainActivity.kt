@@ -29,8 +29,6 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         navigateTo(navView.menu.findItem(R.id.navigation_map))
-
-        prueba.visibility = View.INVISIBLE
     }
 
 

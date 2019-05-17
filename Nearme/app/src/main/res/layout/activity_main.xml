@@ -6,8 +6,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".controllers.activities.MainActivity"
-        android:background="@android:color/white">
+        tools:context=".controllers.activities.MainActivity">
 
     <FrameLayout android:id="@+id/content"
                  android:layout_width="match_parent"
@@ -25,16 +24,4 @@
             app:layout_constraintRight_toRightOf="parent"
             app:menu="@menu/bottom_nav_menu"/>
 
-    <LinearLayout
-            android:id="@+id/prueba"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:orientation="vertical"
-            android:background="@android:color/holo_green_light"
-            app:layout_constraintLeft_toLeftOf="parent">
-            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-                      android:textColor="@android:color/black"
-            android:text="fsfsfsfff"/>
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
