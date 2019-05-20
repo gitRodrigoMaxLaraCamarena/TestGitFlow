@@ -18,7 +18,7 @@
             android:id="@+id/text_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="E-MAIL"
+            android:text="@string/login_label_email"
             android:textSize="20dp"
             android:textColor="@android:color/white"
             app:layout_constraintTop_toTopOf="parent"
@@ -58,7 +58,7 @@
             android:id="@+id/text_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PASSWORD"
+            android:text="@string/login_label_password"
             android:textSize="20dp"
             android:textColor="@android:color/white"
             app:layout_constraintTop_toBottomOf="@id/input_email"
@@ -96,7 +96,7 @@
 
     <CheckBox
             android:id="@+id/check_rememberme"
-            android:text="Remember me"
+            android:text="@string/login_check_box_remember_me"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/text_passworderror"
@@ -109,7 +109,7 @@
 
     <Button
             android:id="@+id/button_singin"
-            android:text="Sing in"
+            android:text="@string/login_button_sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/check_rememberme"
@@ -138,7 +138,7 @@
 
     <TextView
             android:id="@+id/text_forgotyourpassword"
-            android:text="Forgot your password?"
+            android:text="@string/login_label_forgot_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,10 +1,41 @@
 <resources>
     <string name="app_name">Nearme</string>
-    <string name="url_loginbackground">
+    <string name="url_loginbackground" translatable="false">
         https://previews.123rf.com/images/mix3r/mix3r1505/mix3r150500143/39763212-concepto-de-fondo-de-viajes-mundial-avi%C3%B3n-iconos-planos-image-holidays-concepto-de-turismo-y-vacation-s.jpg
     </string>
-    <string name="mail_enterprise">
-        smartsolutions@gmail.com
+    <string name="mail_enterprise" translatable="false">
+        smartsolutionsupc@gmail.com
     </string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps" translatable="false">Map</string>
+
+    <!-- NAV-Menu -->
+    <string name="nav_title_maps"> Map</string>
+    <string name="nav_title_account"> Account</string>
+    <string name="nav_title_settings"> Settings</string>
+    <!-- Login Activity -->
+    <string name="login_label_email"> E-MAIL </string>
+    <string name="login_label_password"> PASSWORD </string>
+    <string name="login_label_forgot_password"> Forgot your password? </string>
+    <string name="login_button_sign_in"> SIGN IN </string>
+    <string name="login_check_box_remember_me"> Remember me </string>
+    <!-- Account Fragment -->
+    <string name="account_label_title_my_account"> My Account </string>
+    <!-- Account Fragment and Activity -->
+    <string name="account_label_full_name"> Full Name </string>
+    <string name="account_label_email"> Email </string>
+    <string name="account_label_password"> Password </string>
+    <string name="account_label_gender"> Gender </string>
+    <string name="account_label_preferences"> Preferences </string>
+    <string name="account_label_edit"> Edit </string>
+    <!--Edit Account Activity-->
+    <string name="edit_account_label_title_my_account">My Account - Edit</string>
+    <string name="edit_account_label_male">Male</string>
+    <string name="edit_account_label_female">Female</string>
+    <string name="edit_account_label_I_dont_know">I do not know</string>
+    <string name="edit_account_label_save">Save</string>
+    <!-- Settings Fragment -->
+    <string name="settings_label_search_range">Search Range</string>
+    <string name="settings_label_map_style">Map Style</string>
+    <string name="settings_label_save">Save</string>
+
 </resources>

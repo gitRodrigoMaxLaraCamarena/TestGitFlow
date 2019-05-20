@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nearme</string>
+    <string name="login_button_sign_in">INICIAR SESION</string>
+    <string name="login_check_box_remember_me">Recuerdame</string>
+    <string name="login_label_email">CORREO</string>
+    <string name="login_label_forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="login_label_password">CONTRASEÑA</string>
+    <string name="nav_title_account">Cuenta</string>
+    <string name="nav_title_maps">Mapa</string>
+    <string name="nav_title_settings">Ajustes</string>
+    <string name="settings_label_map_style">Estilo de mapa</string>
+    <string name="settings_label_save">Guardar</string>
+    <string name="settings_label_search_range">Rango de Busqueda</string>
+    <string name="account_label_edit">Editar</string>
+    <string name="account_label_email">Correo</string>
+    <string name="account_label_full_name">Nombre Completo</string>
+    <string name="account_label_gender">Genero</string>
+    <string name="account_label_password">Contraseña</string>
+    <string name="account_label_preferences">Preferencias</string>
+    <string name="account_label_title_my_account">Mi Cuenta</string>
+    <string name="edit_account_label_I_dont_know">No lo se</string>
+    <string name="edit_account_label_female">Femenino</string>
+    <string name="edit_account_label_male">Masculino</string>
+    <string name="edit_account_label_save">Guardar</string>
+    <string name="edit_account_label_title_my_account">Mi Cuenta - Editar</string>
+</resources>
