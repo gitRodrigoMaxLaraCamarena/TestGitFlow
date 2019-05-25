@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.util.Patterns
 import kotlinx.android.synthetic.main.activity_create_account.*
 import resasoftware.com.pe.nearme.R
+import android.widget.RadioGroup
+
+
 
 class CreateAccountActivity : AppCompatActivity() {
     private var email: String = ""
@@ -22,6 +25,7 @@ class CreateAccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)
         radioButton_male.isChecked = true
+        sex = "Male"
 
         buttonSave.setOnClickListener {
             email = input_create_email.text.toString()
@@ -51,15 +55,14 @@ class CreateAccountActivity : AppCompatActivity() {
                     text_create_error_fullname.text = ""
                 }
             }
-/*
-            when(select_create_gender.setOnCheckedChangeListener(select_create_gender,)){
-                radioButton_male.id -> sex = "Male"
-                radioButton_female.id -> sex = "Female"
-                radioButton_other.id -> sex = "I don\'t Know"
-            }
-            */
         }
-
+        select_create_gender.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.radioButton_male -> sex = "Male"
+                R.id.radioButton_female -> sex = "Female"
+                R.id.radioButton_other -> sex = "I don't Know"
+            }
+        })
         /*
         radioButton_male.setOnCheckedChangeListener { _, isChecked -> sex = "Male" }
         radioButton_female.setOnCheckedChangeListener { _, isChecked -> sex = "Female" }
