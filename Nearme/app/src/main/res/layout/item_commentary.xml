@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" tools:srcCompat="@tools:sample/avatars[12]"
+                android:id="@+id/profileImageView" app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp"/>
+        <TextView
+                android:text="Person Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/NameTextView" android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/profileImageView" app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"/>
+        <TextView
+                android:text="Total Starts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/TotalStartsTextView6" android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/profileImageView" android:layout_marginTop="7dp"
+                app:layout_constraintTop_toBottomOf="@+id/NameTextView"/>
+        <TextView
+                android:text="Commentary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/CommentaryTextView" android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/profileImageView" android:layout_marginTop="7dp"
+                app:layout_constraintTop_toBottomOf="@+id/TotalStartsTextView6"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

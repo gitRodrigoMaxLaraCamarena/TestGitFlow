@@ -16,6 +16,12 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".controllers.activities.CommentActivity">
+        </activity>
+        <activity android:name=".activity_comment">
+        </activity>
+        <activity android:name=".controllers.activities.EnterpriseDetailsActivity">
+        </activity>
         <activity android:name=".controllers.activities.EditAccountActivity">
         </activity>
         <!--
