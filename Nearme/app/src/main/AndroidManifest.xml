@@ -19,6 +19,8 @@
         <activity android:name=".controllers.activities.CommentActivity">
         </activity>
         <activity android:name=".controllers.activities.EnterpriseDetailsActivity">
+		</activity>
+        <activity android:name=".controllers.activities.CreateAccountActivity">
         </activity>
         <activity android:name=".controllers.activities.EditAccountActivity">
         </activity>

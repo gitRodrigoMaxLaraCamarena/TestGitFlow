@@ -24,4 +24,6 @@
     <string name="edit_account_label_male">Masculino</string>
     <string name="edit_account_label_save">Guardar</string>
     <string name="edit_account_label_title_my_account">Mi Cuenta - Editar</string>
+    <string name="login_label_have_an_account">"¿No tienes una cuenta? "</string>
+    <string name="login_label_create_an_account">Create una</string>
 </resources>
