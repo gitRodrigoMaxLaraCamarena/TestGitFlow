@@ -9,26 +9,30 @@
     <string name="title_activity_maps" translatable="false">Map</string>
 
     <!-- NAV-Menu -->
-    <string name="nav_title_maps"> Map</string>
-    <string name="nav_title_account"> Account</string>
-    <string name="nav_title_settings"> Settings</string>
+    <string name="nav_title_maps">Map</string>
+    <string name="nav_title_account">Account</string>
+    <string name="nav_title_settings">Settings</string>
     <!-- Login Activity -->
-    <string name="login_label_email"> E-MAIL </string>
-    <string name="login_label_password"> PASSWORD </string>
-    <string name="login_label_forgot_password"> Forgot your password? </string>
-    <string name="login_button_sign_in"> SIGN IN </string>
-    <string name="login_check_box_remember_me"> Remember me </string>
+    <string name="login_label_email">E-MAIL</string>
+    <string name="login_label_password">PASSWORD</string>
+    <string name="login_label_forgot_password">Forgot your password?</string>
+    <string name="login_button_sign_in">SIGN IN</string>
+    <string name="login_check_box_remember_me">Remember me</string>
+    <string name="login_label_have_an_account">You don\'t have an account? </string>
+    <string name="login_label_create_an_account">Create an account</string>
     <!-- Account Fragment -->
-    <string name="account_label_title_my_account"> My Account </string>
-    <!-- Account Fragment and Activity -->
-    <string name="account_label_full_name"> Full Name </string>
-    <string name="account_label_email"> Email </string>
-    <string name="account_label_password"> Password </string>
-    <string name="account_label_gender"> Gender </string>
-    <string name="account_label_preferences"> Preferences </string>
-    <string name="account_label_edit"> Edit </string>
+    <string name="account_label_title_my_account">My Account</string>
+    <!-- Account Fragment, Activity and Create Account Activity -->
+    <string name="account_label_full_name">Full Name</string>
+    <string name="account_label_email">Email</string>
+    <string name="account_label_password">Password</string>
+    <string name="account_label_gender">Gender</string>
+    <!-- Account Fragment, Activity-->
+    <string name="account_label_preferences">Preferences</string>
+    <string name="account_label_edit">Edit</string>
     <!--Edit Account Activity-->
     <string name="edit_account_label_title_my_account">My Account - Edit</string>
+    <!--Edit Account ans Create Account Activity -->
     <string name="edit_account_label_male">Male</string>
     <string name="edit_account_label_female">Female</string>
     <string name="edit_account_label_I_dont_know">I do not know</string>

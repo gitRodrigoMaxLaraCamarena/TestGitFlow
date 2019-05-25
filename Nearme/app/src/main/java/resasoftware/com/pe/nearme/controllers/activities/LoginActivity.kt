@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        button_singin.setOnClickListener {
+        button_signin.setOnClickListener {
             email = input_email.text.toString()
             password = input_password.text.toString()
 
@@ -90,6 +90,11 @@ class LoginActivity : AppCompatActivity() {
                     sendEmail(e)
                 }
             }
+        }
+
+        create_account.setOnClickListener {
+            val intent: Intent = Intent(this, CreateAccountActivity::class.java)
+            startActivity(intent)
         }
     }
 
