@@ -26,4 +26,14 @@
     <string name="edit_account_label_title_my_account">Mi Cuenta - Editar</string>
     <string name="login_label_have_an_account">"¿No tienes una cuenta? "</string>
     <string name="login_label_create_an_account">Create una</string>
+    <string name="placeholder_email">Tu correo</string>
+    <string name="placeholder_full_name">Tu nombre completo</string>
+    <string name="placeholder_password">Tu contraseña</string>
+    <string name="notifications_fail">Ocurrió un error</string>
+    <string name="notifications_success">Éxito</string>
+    <string name="error_label_email">dirección de correo invalido</string>
+    <string name="error_label_full_name">nombre no debe ser nulo o vacio</string>
+    <string name="error_label_password">contraseña no debe ser nulo o vacio</string>
+    <string name="error_label_password_size">mínimo 7 caracteres</string>
+    <string name="error_label_full_name_size">mínimo 4 caracteres</string>
 </resources>

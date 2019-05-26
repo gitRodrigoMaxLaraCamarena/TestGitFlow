@@ -42,5 +42,17 @@
     <string name="settings_label_search_range">Search Range</string>
     <string name="settings_label_map_style">Map Style</string>
     <string name="settings_label_save">Save</string>
-
+    <!-- Common placeholders -->
+    <string name="placeholder_full_name">Your full name</string>
+    <string name="placeholder_email">Your email</string>
+    <string name="placeholder_password">Your password</string>
+    <!-- Common Error label -->
+    <string name="error_label_full_name">full name can not be null or empty</string>
+    <string name="error_label_email">invalid email address</string>
+    <string name="error_label_password">password can not be null or empty</string>
+    <string name="error_label_full_name_size">minimum 4 characters</string>
+    <string name="error_label_password_size">" minimum 7 characters"</string>
+    <!-- Notification -->
+    <string name="notifications_success">success</string>
+    <string name="notifications_fail">fail</string>
 </resources>

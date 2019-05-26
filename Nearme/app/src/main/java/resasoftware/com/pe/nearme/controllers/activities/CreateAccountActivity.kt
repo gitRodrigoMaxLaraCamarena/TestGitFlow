@@ -3,11 +3,17 @@ package resasoftware.com.pe.nearme.controllers.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
+import android.util.Log
 import android.util.Patterns
+import android.view.Gravity
 import kotlinx.android.synthetic.main.activity_create_account.*
 import resasoftware.com.pe.nearme.R
 import android.widget.RadioGroup
-
+import android.widget.Toast
+import resasoftware.com.pe.nearme.models.User
+import resasoftware.com.pe.nearme.network.NearmeApi
+import resasoftware.com.pe.nearme.network.Notifications
 
 
 class CreateAccountActivity : AppCompatActivity() {
@@ -17,15 +23,43 @@ class CreateAccountActivity : AppCompatActivity() {
     private var sex: String = ""
 
     private val pattern = Patterns.EMAIL_ADDRESS
-    private val passwordError = "password can't be null or empty"
-    private var emailError = "invalid email address"
-    private val nameError = "password can't be null or empty"
+    private var passwordError:String = ""
+    private var emailError:String = ""
+    private var nameError:String = ""
+    private var nameErrorSize:String = ""
+    private var passwordErrorSize:String = ""
+    //private val passwordError = "password can't be null or empty"
+    //private var emailError = "invalid email address"
+    //private val nameError = "password can't be null or empty"
+
+    private var validEmail: Boolean = false
+    private var validPassword: Boolean = false
+    private var validName: Boolean = false
+
+    private var image: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)
         radioButton_male.isChecked = true
         sex = "Male"
+        passwordError = getString(R.string.error_label_password)
+        emailError = getString(R.string.error_label_email)
+        nameError = getString(R.string.error_label_full_name)
+        passwordErrorSize = getString(R.string.error_label_password_size)
+        nameErrorSize = getString(R.string.error_label_full_name_size)
+
+        image_create_visibilitypassword.setOnClickListener {
+            image*=-1
+
+            if(image == -1){
+                image_create_visibilitypassword.setImageResource(R.drawable.ic_visibility_off_black_24dp)
+                input_create_password.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL
+            }else if(image == 1){
+                image_create_visibilitypassword.setImageResource(R.drawable.ic_visibility_black_24dp)
+                input_create_password.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
+        }
 
         buttonSave.setOnClickListener {
             email = input_create_email.text.toString()
@@ -35,27 +69,48 @@ class CreateAccountActivity : AppCompatActivity() {
             email.apply {
                 if (!validateEmail(this)){
                     text_create_error_email.text = emailError
+                    validEmail = false
                 }else{
                     text_create_error_email.text = ""
+                    validEmail = true
                 }
             }
 
             password.apply {
                 if(this.isBlank()) {
                     text_create_error_password.text = passwordError
+                    validPassword = false
                 }else{
-                    text_create_error_password.text = ""
+                    if(password.length < 7){
+                        text_create_error_password.text = passwordErrorSize
+                        validPassword = false
+                    }else{
+                        text_create_error_password.text = ""
+                        validPassword = true
+                    }
                 }
             }
 
             name.apply {
                 if(this.isBlank()) {
                     text_create_error_fullname.text = nameError
+                    validName = false
                 }else{
-                    text_create_error_fullname.text = ""
+                    if(name.length < 4){
+                        text_create_error_fullname.text = nameErrorSize
+                        validName = false
+                    }else {
+                        text_create_error_fullname.text = ""
+                        validName = true
+                    }
                 }
             }
+
+            if(validEmail and validPassword and validName){
+                create()
+            }
         }
+
         select_create_gender.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.radioButton_male -> sex = "Male"
@@ -63,19 +118,6 @@ class CreateAccountActivity : AppCompatActivity() {
                 R.id.radioButton_other -> sex = "I don't Know"
             }
         })
-        /*
-        radioButton_male.setOnCheckedChangeListener { _, isChecked -> sex = "Male" }
-        radioButton_female.setOnCheckedChangeListener { _, isChecked -> sex = "Female" }
-        radioButton_other.setOnCheckedChangeListener { _, isChecked -> sex = "I don't Know" }
-
-        if(radioButton_male.isChecked){
-            sex = "Male"
-        }else if(radioButton_female.isChecked){
-            sex = "Female"
-        }else if(radioButton_other.isChecked){
-            sex = "I don\'t Know"
-        }
-        */
     }
 
     private fun validateEmail(value: String): Boolean{
@@ -83,8 +125,35 @@ class CreateAccountActivity : AppCompatActivity() {
     }
 
     private fun create(){
+        var user: User = User()
+        //var type: Type_User = Type_User()
+        user.email= email
+        user.fullname = name
+        user.image = " "
+        user.password = password
+        user.sex = sex
 
-        //val intent: Intent = Intent(this, LoginActivity::class.java)
-       // startActivity(intent)
+        NearmeApi.getUserType(
+            null,
+            {
+                it?.apply {
+                    for (item in  it){
+                        if(item.name == "Traveler"){
+                            user.type_user_id = item
+                            break
+                        }
+                    }
+                }
+                    if(user.type_user_id.id == 0){
+                        Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
+                    }else{
+                        NearmeApi.postUser(user)
+                        Notifications.toastNotifications(getString(R.string.notifications_success), application, Toast.LENGTH_SHORT, Gravity.BOTTOM )
+                    }
+                        Log.d("valor de type", user.type_user_id.toString())
+            }, {
+                Log.d("NewsApi", "${it.errorBody} ${it.localizedMessage}")
+                    Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
+            })
     }
 }
