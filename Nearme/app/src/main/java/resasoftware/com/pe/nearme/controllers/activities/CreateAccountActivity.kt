@@ -127,6 +127,7 @@ class CreateAccountActivity : AppCompatActivity() {
     private fun create(){
         var user: User = User()
         //var type: Type_User = Type_User()
+        user.id=0
         user.email= email
         user.fullname = name
         user.image = " "
@@ -144,11 +145,12 @@ class CreateAccountActivity : AppCompatActivity() {
                         }
                     }
                 }
-                    if(user.type_user_id.id == 0){
-                        Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
-                    }else{
+                    if(user.type_user_id.id == 2){
                         NearmeApi.postUser(user)
                         Notifications.toastNotifications(getString(R.string.notifications_success), application, Toast.LENGTH_SHORT, Gravity.BOTTOM )
+
+                    }else{
+                        Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
                     }
                         Log.d("valor de type", user.type_user_id.toString())
             }, {

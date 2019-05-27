@@ -1,5 +1,6 @@
 package resasoftware.com.pe.nearme.controllers.activities
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -8,8 +9,13 @@ import android.os.Bundle
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_login.*
 import android.util.Patterns
+import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import resasoftware.com.pe.nearme.R
+import resasoftware.com.pe.nearme.network.NearmeApi
+import resasoftware.com.pe.nearme.network.NearmeApi.Companion.getUsers
+import resasoftware.com.pe.nearme.network.Notifications
 
 
 class LoginActivity : AppCompatActivity() {
@@ -33,11 +39,10 @@ class LoginActivity : AppCompatActivity() {
             setImageUrl(getString(R.string.url_loginbackground))
             Log.d("url", R.string.url_loginbackground.toString())
         }
-
         forgotpassword.visibility = View.INVISIBLE
-
         loadSession()
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -45,6 +50,8 @@ class LoginActivity : AppCompatActivity() {
         button_signin.setOnClickListener {
             email = input_email.text.toString()
             password = input_password.text.toString()
+
+
 
             email.apply {
                 if (!validateEmail(this)){
@@ -103,16 +110,31 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun authorization(email: String, password: String){ //cambiar por un usuario
-        if(check_rememberme.isChecked){
-            text_generalerror.text = ""
-            val intent = Intent(this, MainActivity::class.java)
-            saveSession()
-            finish()
-            startActivity(intent)
-        }
-        else{
-            text_generalerror.text = generalError
-        }
+        val intent = Intent(this, MainActivity::class.java)
+        Log.d("NEARMEIInicial","Prueba")
+        NearmeApi.getUsers(
+            null,
+            {
+                it?.apply {
+                    for (item in it) {
+                        if((item.email == email) and (item.password == password)) {
+                            if(check_rememberme.isChecked ){
+                                text_generalerror.text = ""
+                                saveSession()
+                                finish()
+                                startActivity(intent)
+                            }
+                            else{
+                                text_generalerror.text = generalError
+                            }
+                        }
+                    }
+                }
+            }, {
+                Log.d("NEARMETESTNewsApi", "${it.errorBody} ${it.localizedMessage}")
+                Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
+            })
+        text_generalerror.text = generalError
     }
 
     private fun sendEmail(email: String){
