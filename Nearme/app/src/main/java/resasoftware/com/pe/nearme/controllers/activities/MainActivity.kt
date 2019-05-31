@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         navigateTo(navView.menu.findItem(R.id.navigation_map))
+        intent.extras?.apply {
+            this.
+        }
     }
 
 
@@ -36,8 +39,8 @@ class MainActivity : AppCompatActivity() {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Exit")
-                .setMessage("Are you sure?")
+                .setTitle(getString(R.string.message_exit))
+                .setMessage(getString(R.string.message_are_you_sure))
                 .setNegativeButton(android.R.string.cancel, null)//sin listener
                 .setPositiveButton(android.R.string.ok, DialogInterface.OnClickListener { dialog, which ->  this.finish()})
                 .show()

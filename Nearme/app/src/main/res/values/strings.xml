@@ -51,8 +51,12 @@
     <string name="error_label_email">invalid email address</string>
     <string name="error_label_password">password can not be null or empty</string>
     <string name="error_label_full_name_size">minimum 4 characters</string>
-    <string name="error_label_password_size">" minimum 7 characters"</string>
+    <string name="error_label_password_size">"minimum 7 characters"</string>
+    <string name="error_label_general">invalid email or password</string>
     <!-- Notification -->
     <string name="notifications_success">success</string>
     <string name="notifications_fail">fail</string>
+    <!-- Messages -->
+    <string name="message_exit">Exit</string>
+    <string name="message_are_you_sure">Are you sure?</string>
 </resources>
