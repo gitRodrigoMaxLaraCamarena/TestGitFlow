@@ -34,6 +34,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
     implementation 'com.amitshekhar.android:jackson-android-networking:1.0.2'
+    implementation 'com.github.satyan:sugar:1.5'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }

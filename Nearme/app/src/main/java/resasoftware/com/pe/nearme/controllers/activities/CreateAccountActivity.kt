@@ -113,9 +113,9 @@ class CreateAccountActivity : AppCompatActivity() {
 
         select_create_gender.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.radioButton_male -> sex = "Male"
-                R.id.radioButton_female -> sex = "Female"
-                R.id.radioButton_other -> sex = "I don't Know"
+                R.id.radioButton_male -> sex = getString(R.string.edit_account_label_male)
+                R.id.radioButton_female -> sex = getString(R.string.edit_account_label_female)
+                R.id.radioButton_other -> sex = getString(R.string.edit_account_label_other)
             }
         })
     }
@@ -146,9 +146,14 @@ class CreateAccountActivity : AppCompatActivity() {
                     }
                 }
                     if(user.type_user_id.id == 2){
-                        NearmeApi.postUser(user)
-                        Notifications.toastNotifications(getString(R.string.notifications_success), application, Toast.LENGTH_SHORT, Gravity.BOTTOM )
-
+                        NearmeApi.postUser(
+                            user,
+                            {
+                                Notifications.toastNotifications(getString(R.string.notifications_success), application, Toast.LENGTH_SHORT, Gravity.BOTTOM )
+                            }, {
+                                Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
+                            }
+                        )
                     }else{
                         Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
                     }

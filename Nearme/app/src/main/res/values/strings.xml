@@ -36,7 +36,7 @@
     <!--Edit Account ans Create Account Activity -->
     <string name="edit_account_label_male">Male</string>
     <string name="edit_account_label_female">Female</string>
-    <string name="edit_account_label_I_dont_know">I do not know</string>
+    <string name="edit_account_label_other">Other</string>
     <string name="edit_account_label_save">Save</string>
     <!-- Settings Fragment -->
     <string name="settings_label_search_range">Search Range</string>

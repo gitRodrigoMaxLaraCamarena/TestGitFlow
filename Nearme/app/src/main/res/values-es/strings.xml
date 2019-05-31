@@ -19,7 +19,6 @@
     <string name="account_label_password">Contraseña</string>
     <string name="account_label_preferences">Preferencias</string>
     <string name="account_label_title_my_account">Mi Cuenta</string>
-    <string name="edit_account_label_I_dont_know">No lo se</string>
     <string name="edit_account_label_female">Femenino</string>
     <string name="edit_account_label_male">Masculino</string>
     <string name="edit_account_label_save">Guardar</string>
@@ -39,4 +38,5 @@
     <string name="error_label_general">correo o contraseña invalidos</string>
     <string name="message_are_you_sure">¿Estas seguro?</string>
     <string name="message_exit">Salir</string>
+    <string name="edit_account_label_other">Otro</string>
 </resources>
