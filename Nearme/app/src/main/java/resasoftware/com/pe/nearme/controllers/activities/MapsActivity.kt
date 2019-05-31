@@ -12,7 +12,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import androidx.fragment.app.FragmentActivity
 import resasoftware.com.pe.nearme.R
 
-
+/*
 class MapsActivity : FragmentActivity(), OnMapReadyCallback {
 
     private var mMap: GoogleMap? = null
@@ -20,6 +20,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
+
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
@@ -33,4 +34,6 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
         mMap!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
+
 }
+        */
