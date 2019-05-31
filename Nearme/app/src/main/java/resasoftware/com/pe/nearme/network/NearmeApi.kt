@@ -42,9 +42,10 @@ class NearmeApi {
             get(typeUserURL, id, responseHandler, errorHandler)
         }
 
-        fun postUser(user: User) {
+        fun postUser(user: User, responseHandler: (JSONObject?) -> Unit,
+                     errorHandler: (ANError?) -> Unit) {
             val json: JSONObject = user.converToJson()
-            post(json, userURL)
+            post(json, userURL, responseHandler, errorHandler)
 
         }
 
@@ -81,13 +82,23 @@ class NearmeApi {
         }
 
         // Post - All
-        private inline fun  post(obj: JSONObject, url: String) {
+        private inline fun  post(obj: JSONObject, url: String, crossinline responseHandler: (JSONObject?) -> Unit,
+                                 crossinline errorHandler: (ANError?) -> Unit) {
             AndroidNetworking.post(url)
                 .addHeaders("Content-Type", "application/json")
                 .addJSONObjectBody(obj)
                 .setTag(TAG)
                 .setPriority(Priority.MEDIUM)
                 .build()
+                .getAsJSONObject(object : JSONObjectRequestListener{
+                    override fun onResponse(response: JSONObject?) {
+                        responseHandler(response)
+                    }
+
+                    override fun onError(anError: ANError?) {
+                        errorHandler(anError)
+                    }
+                })
         }
     }
 }

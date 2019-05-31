@@ -6,6 +6,7 @@ import android.text.InputType
 import android.util.Patterns
 import kotlinx.android.synthetic.main.activity_edit_account.*
 import resasoftware.com.pe.nearme.R
+import resasoftware.com.pe.nearme.models.User
 
 class EditAccountActivity : AppCompatActivity() {
 
@@ -20,9 +21,29 @@ class EditAccountActivity : AppCompatActivity() {
 
     private var pattern = Patterns.EMAIL_ADDRESS
 
+    var user: User = User()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_account)
+
+        intent.extras?.apply {
+            user = getSerializable("user") as User
+            text_edit_fullname.setText(user.fullname)
+            text_edit_email.setText(user.email)
+            text_edit_password.setText(user.password)
+
+
+            when (user.sex) {
+                "Male" -> radioButton_male.isChecked = true
+                "Feale" -> radioButton_female.isChecked = true
+                "Other" -> radioButton_other.isChecked = true
+                "Masculino" -> radioButton_male.isChecked = true
+                "Femenino" -> radioButton_female.isChecked = true
+                "Otro" -> radioButton_other.isChecked = true
+            }
+
+        }
     }
 
     override fun onResume() {
@@ -61,10 +82,10 @@ class EditAccountActivity : AppCompatActivity() {
         }
 
         if(pattern.matcher(email).matches()){
+            text_edit_error_email.text = ""
+        }else{
             response = false
             text_edit_error_email.text = email_error
-        }else{
-            text_edit_error_email.text = ""
         }
 
         if(password.isBlank()){

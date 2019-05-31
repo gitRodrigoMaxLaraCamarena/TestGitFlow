@@ -22,9 +22,9 @@ class LoginActivity : AppCompatActivity() {
     private var email: String = ""
     private var password: String = ""
 
-    private val passwordError = "password can't be null or empty"
-    private var emailError = "invalid email address"
-    private val generalError = "invalid email or password"
+    private var passwordError: String = ""
+    private var emailError: String = ""
+    private var generalError: String = ""
 
     private var emailvalid: Boolean = false
     private var passwordvalid: Boolean = false
@@ -41,6 +41,10 @@ class LoginActivity : AppCompatActivity() {
         }
         forgotpassword.visibility = View.INVISIBLE
         loadSession()
+        passwordError = getString(R.string.error_label_password)
+        emailError = getString(R.string.error_label_email)
+        generalError = getString(R.string.error_label_general)
+        check_rememberme.isChecked = true
     }
 
 
@@ -100,7 +104,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         create_account.setOnClickListener {
-            val intent: Intent = Intent(this, CreateAccountActivity::class.java)
+            val intent = Intent(this, CreateAccountActivity::class.java)
             startActivity(intent)
         }
     }
@@ -118,15 +122,15 @@ class LoginActivity : AppCompatActivity() {
                 it?.apply {
                     for (item in it) {
                         if((item.email == email) and (item.password == password)) {
+                            text_generalerror.text = ""
                             if(check_rememberme.isChecked ){
-                                text_generalerror.text = ""
                                 saveSession()
-                                finish()
-                                startActivity(intent)
                             }
-                            else{
-                                text_generalerror.text = generalError
-                            }
+                            finish()
+                            intent.putExtra("user", item)
+                            startActivity(intent)
+                        }else{
+                            text_generalerror.text = generalError
                         }
                     }
                 }
@@ -134,7 +138,6 @@ class LoginActivity : AppCompatActivity() {
                 Log.d("NEARMETESTNewsApi", "${it.errorBody} ${it.localizedMessage}")
                 Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
             })
-        text_generalerror.text = generalError
     }
 
     private fun sendEmail(email: String){
