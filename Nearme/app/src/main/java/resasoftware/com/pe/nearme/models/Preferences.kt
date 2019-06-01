@@ -5,10 +5,8 @@ import java.io.Serializable
 
 data class Preferences (
     val name: String
-): SugarRecord(){
-    constructor() : this(
-        ""
-    )
+) : SugarRecord(){
+    constructor() : this("")
     companion object {
         fun addPreference(preference: Category, icon: Int): Boolean {
             val pref: Preferences = Preferences(name = preference.name)
@@ -23,6 +21,7 @@ data class Preferences (
         fun removePreference(preference: Preferences): Boolean{
             try {
                 val pref = SugarRecord.find(Preferences::class.java, "name = ?", preference.name)
+                SugarRecord.delete(pref)
                 return true
             }
             catch (e: Exception){
@@ -30,10 +29,9 @@ data class Preferences (
             }
         }
 
-        fun allPreferences(): ArrayList<Preferences> {
-            var preferences: ArrayList<Preferences> = ArrayList<Preferences>()
-            preferences = SugarRecord.findAll(Preferences::class.java) as ArrayList<Preferences>
-            return preferences
+        fun allPreferences(): ArrayList<Preferences>{
+            val preferences = SugarRecord.findAll(Preferences::class.java)
+            return preferences as ArrayList<Preferences>
         }
     }
 }

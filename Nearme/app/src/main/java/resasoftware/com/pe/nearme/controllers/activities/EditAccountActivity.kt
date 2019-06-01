@@ -3,6 +3,7 @@ package resasoftware.com.pe.nearme.controllers.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.util.Patterns
 import android.view.Gravity
 import android.widget.CheckBox
@@ -30,12 +31,19 @@ class EditAccountActivity : AppCompatActivity() {
 
     var user: User = User()
 
-    //var preferences: ArrayList<Preferences> = ArrayList<Preferences>()
+    var selects: ArrayList<Pair<Int,String>> = ArrayList<Pair<Int,String>>()
+
+    var preferences: ArrayList<Preferences>? = ArrayList<Preferences>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_account)
-        //preferences = Preferences.allPreferences()
+
+        try{
+            preferences = Preferences.allPreferences()
+        }catch(e: Exception){
+            preferences = ArrayList<Preferences>()
+        }
 
         intent.extras?.apply {
             user = getSerializable("user") as User
@@ -58,9 +66,19 @@ class EditAccountActivity : AppCompatActivity() {
                 {
                     if(it != null) {
                         val categories: ArrayList<Category> = it as ArrayList<Category>
-                        for (item in categories) {
+                        for( i in 0..(categories.size-1)){
                             var checkBox = CheckBox(this@EditAccountActivity)
-                            checkBox.text = item.name
+                            checkBox.text = categories[i].name
+                            checkBox.id = i
+                            checkBox.isChecked = false
+                            checkBox.setOnClickListener {
+                                if (selects[i].first == 0){
+                                    selects[i] = Pair<Int, String>(1,categories[i].name)
+                                }else{
+                                    selects[i] = Pair<Int, String>(0,categories[i].name)
+                                }
+                            }
+                            selects.add(Pair<Int, String>(0,categories[i].name))
                             check_group_edit_preferences.addView(checkBox)
                         }
                     }else{
@@ -81,6 +99,7 @@ class EditAccountActivity : AppCompatActivity() {
         buttonSave.setOnClickListener {
             if(ValidateInputs()){
                 // Guadar la info
+                selects
             }
         }
 

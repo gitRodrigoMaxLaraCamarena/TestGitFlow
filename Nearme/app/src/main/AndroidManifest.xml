@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
+            android:name=".NearmeApp"
             android:allowBackup="true"
             android:icon="@drawable/logonearme"
             android:label="@string/app_name"

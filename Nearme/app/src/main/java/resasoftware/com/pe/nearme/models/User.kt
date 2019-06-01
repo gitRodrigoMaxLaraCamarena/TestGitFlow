@@ -1,5 +1,6 @@
 package resasoftware.com.pe.nearme.models
 
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.Serializable
 
