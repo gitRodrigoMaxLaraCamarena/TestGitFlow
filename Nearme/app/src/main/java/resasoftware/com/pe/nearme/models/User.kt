@@ -9,7 +9,8 @@ data class User(
     var fullname: String,
     var image: String?,
     var password: String,
-    var sex: String,
+    var gender: String,
+    var username: String,
     var type_user_id: Type_User
 ): Serializable{
     constructor(): this(
@@ -19,6 +20,7 @@ data class User(
         "",
         "",
         "",
+        "username",
         Type_User()
     )
 
@@ -35,7 +37,8 @@ data class User(
         jsonUser.put("id",id)
         jsonUser.put("image",image)
         jsonUser.put("password",password)
-        jsonUser.put("sex",sex)
+        jsonUser.put("sex",gender)
+        jsonUser.put("username",username)
         jsonUser.put("type_user_id",jsonType)
 
         return jsonUser

@@ -9,6 +9,7 @@ import resasoftware.com.pe.nearme.models.User
 import com.androidnetworking.interfaces.JSONObjectRequestListener
 import resasoftware.com.pe.nearme.models.Type_User
 import org.json.JSONObject
+import resasoftware.com.pe.nearme.models.Category
 
 
 class NearmeApi {
@@ -19,45 +20,50 @@ class NearmeApi {
         private val enterpriseURL = "$BASE_URL/enterprises"
         private val typeUserURL = "$BASE_URL/type_users"
         private val userURL = "$BASE_URL/users"
-
         private val TAG = "NearmeApi"
 
         fun getEnterprises(id: Int?, responseHandler: (ArrayList<User>?) -> Unit,
-                     errorHandler: (ANError) -> Unit) {
-            get(enterpriseURL,id,responseHandler,errorHandler);
+                     errorHandler: (ANError) -> Unit, key: String) {
+            get(enterpriseURL,id,responseHandler,errorHandler, key)
         }
 
         fun getComments(id: Int?, responseHandler: (ArrayList<User>?) -> Unit,
-                     errorHandler: (ANError) -> Unit) {
-            get(commentURL,id,responseHandler,errorHandler);
+                     errorHandler: (ANError) -> Unit, key: String) {
+            get(commentURL,id,responseHandler,errorHandler, key)
+        }
+
+        fun getCategories(id: Int?, responseHandler: (ArrayList<Category>?) -> Unit,
+                        errorHandler: (ANError) -> Unit, key: String) {
+            get(categoryURL,id,responseHandler,errorHandler, key)
         }
 
         fun getUsers(id: Int?, responseHandler: (ArrayList<User>?) -> Unit,
-        errorHandler: (ANError) -> Unit) {
-            get(userURL,id,responseHandler,errorHandler);
+        errorHandler: (ANError) -> Unit, key: String) {
+            get(userURL,id,responseHandler,errorHandler, key)
         }
 
         fun getUserType(id: Int?, responseHandler: (ArrayList<Type_User>?) -> Unit,
-                           errorHandler: (ANError) -> Unit) {
-            get(typeUserURL, id, responseHandler, errorHandler)
+                           errorHandler: (ANError) -> Unit, key: String) {
+            get(typeUserURL, id, responseHandler, errorHandler, key)
         }
 
         fun postUser(user: User, responseHandler: (JSONObject?) -> Unit,
-                     errorHandler: (ANError?) -> Unit) {
+                     errorHandler: (ANError?) -> Unit, key: String) {
             val json: JSONObject = user.converToJson()
-            post(json, userURL, responseHandler, errorHandler)
+            post(json, userURL, responseHandler, errorHandler, key)
 
         }
 
         // GET - All
         private inline fun <reified T> get(url: String, id: Int?, crossinline responseHandler: (ArrayList<T>?) -> Unit,
-            crossinline errorHandler: (ANError) -> Unit
-        ) {
+            crossinline errorHandler: (ANError) -> Unit, key: String)
+        {
             var URL: String = url
             id?.apply {
                 URL = "$url/$id"
             }
             AndroidNetworking.get(URL)
+                .addHeaders("Authorization", "Bearer $key")
                 .setTag(TAG)
                 .setPriority(Priority.HIGH)
                 .build()
@@ -83,8 +89,9 @@ class NearmeApi {
 
         // Post - All
         private inline fun  post(obj: JSONObject, url: String, crossinline responseHandler: (JSONObject?) -> Unit,
-                                 crossinline errorHandler: (ANError?) -> Unit) {
+                                 crossinline errorHandler: (ANError?) -> Unit, key: String) {
             AndroidNetworking.post(url)
+                .addHeaders("Authorization", "Bearer $key")
                 .addHeaders("Content-Type", "application/json")
                 .addJSONObjectBody(obj)
                 .setTag(TAG)

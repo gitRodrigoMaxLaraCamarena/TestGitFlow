@@ -4,18 +4,14 @@ import com.orm.SugarRecord
 import java.io.Serializable
 
 data class Preferences (
-    val name: String,
-    val description: String,
-    val icon: Int
-): SugarRecord(), Serializable {
+    val name: String
+): SugarRecord(){
     constructor() : this(
-        "",
-        "",
-        0
+        ""
     )
     companion object {
         fun addPreference(preference: Category, icon: Int): Boolean {
-            val pref: Preferences = Preferences(name = preference.name, description = preference.description, icon = icon)
+            val pref: Preferences = Preferences(name = preference.name)
             try{
                 SugarRecord.save(pref)
                 return true

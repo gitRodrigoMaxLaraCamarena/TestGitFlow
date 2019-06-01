@@ -132,7 +132,7 @@ class CreateAccountActivity : AppCompatActivity() {
         user.fullname = name
         user.image = " "
         user.password = password
-        user.sex = sex
+        user.gender = sex
 
         NearmeApi.getUserType(
             null,
@@ -145,14 +145,14 @@ class CreateAccountActivity : AppCompatActivity() {
                         }
                     }
                 }
-                    if(user.type_user_id.id == 2){
+                    if(user.type_user_id.id != 0){
                         NearmeApi.postUser(
                             user,
                             {
                                 Notifications.toastNotifications(getString(R.string.notifications_success), application, Toast.LENGTH_SHORT, Gravity.BOTTOM )
                             }, {
                                 Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
-                            }
+                            },getString(R.string.nearme_api_key)
                         )
                     }else{
                         Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
@@ -160,7 +160,8 @@ class CreateAccountActivity : AppCompatActivity() {
                         Log.d("valor de type", user.type_user_id.toString())
             }, {
                 Log.d("NewsApi", "${it.errorBody} ${it.localizedMessage}")
-                    Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
-            })
+                Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
+            },getString(R.string.nearme_api_key)
+            )
     }
 }

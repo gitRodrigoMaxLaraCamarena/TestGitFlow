@@ -137,7 +137,8 @@ class LoginActivity : AppCompatActivity() {
             }, {
                 Log.d("NEARMETESTNewsApi", "${it.errorBody} ${it.localizedMessage}")
                 Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
-            })
+            },getString(R.string.nearme_api_key)
+            )
     }
 
     private fun sendEmail(email: String){

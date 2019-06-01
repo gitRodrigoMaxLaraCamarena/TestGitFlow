@@ -4,9 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
 import android.util.Patterns
+import android.view.Gravity
+import android.widget.CheckBox
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_edit_account.*
 import resasoftware.com.pe.nearme.R
+import resasoftware.com.pe.nearme.models.Category
+import resasoftware.com.pe.nearme.models.Preferences
 import resasoftware.com.pe.nearme.models.User
+import resasoftware.com.pe.nearme.network.NearmeApi
+import resasoftware.com.pe.nearme.network.Notifications
 
 class EditAccountActivity : AppCompatActivity() {
 
@@ -23,9 +30,12 @@ class EditAccountActivity : AppCompatActivity() {
 
     var user: User = User()
 
+    //var preferences: ArrayList<Preferences> = ArrayList<Preferences>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_account)
+        //preferences = Preferences.allPreferences()
 
         intent.extras?.apply {
             user = getSerializable("user") as User
@@ -34,14 +44,33 @@ class EditAccountActivity : AppCompatActivity() {
             text_edit_password.setText(user.password)
 
 
-            when (user.sex) {
+            when (user.gender) {
                 "Male" -> radioButton_male.isChecked = true
-                "Feale" -> radioButton_female.isChecked = true
+                "Female" -> radioButton_female.isChecked = true
                 "Other" -> radioButton_other.isChecked = true
                 "Masculino" -> radioButton_male.isChecked = true
                 "Femenino" -> radioButton_female.isChecked = true
                 "Otro" -> radioButton_other.isChecked = true
             }
+
+            NearmeApi.getCategories(
+                null,
+                {
+                    if(it != null) {
+                        val categories: ArrayList<Category> = it as ArrayList<Category>
+                        for (item in categories) {
+                            var checkBox = CheckBox(this@EditAccountActivity)
+                            checkBox.text = item.name
+                            check_group_edit_preferences.addView(checkBox)
+                        }
+                    }else{
+                        Notifications.toastNotifications(getString(R.string.notifications_fail), this@EditAccountActivity, Toast.LENGTH_SHORT, Gravity.BOTTOM )
+                    }
+                },{
+                    Notifications.toastNotifications(getString(R.string.notifications_fail), this@EditAccountActivity, Toast.LENGTH_SHORT, Gravity.BOTTOM )
+                },
+                getString(R.string.nearme_api_key)
+            )
 
         }
     }

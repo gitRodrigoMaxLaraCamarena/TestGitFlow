@@ -23,6 +23,7 @@
     <string name="login_label_create_an_account">Create an account</string>
     <!-- Account Fragment -->
     <string name="account_label_title_my_account">My Account</string>
+    <string name="account_label_no_preferences">You do not have preferences</string>
     <!-- Account Fragment, Activity and Create Account Activity -->
     <string name="account_label_full_name">Full Name</string>
     <string name="account_label_email">Email</string>
@@ -59,4 +60,6 @@
     <!-- Messages -->
     <string name="message_exit">Exit</string>
     <string name="message_are_you_sure">Are you sure?</string>
+    <!-- Api Key -->
+    <string name="nearme_api_key" translatable="false">eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzbWFydHNvbHV0aW9udXBjIiwicm9sZXMiOlsiVVNFUiJdLCJpYXQiOjE1NTkyODU1MTYsImV4cCI6MTU2MTg3NzUxNn0.xJRaMeNjuDZD6LO5v78_qG_ujTkElge14MuczsSC7cI</string>
 </resources>
