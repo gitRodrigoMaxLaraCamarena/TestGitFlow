@@ -14,6 +14,8 @@ import resasoftware.com.pe.nearme.controllers.fragments.SettingsFragment
 import android.content.DialogInterface
 import android.app.AlertDialog
 import android.view.KeyEvent
+import kotlinx.android.synthetic.main.fragment_account.*
+import resasoftware.com.pe.nearme.models.User
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,8 +38,8 @@ class MainActivity : AppCompatActivity() {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Exit")
-                .setMessage("Are you sure?")
+                .setTitle(getString(R.string.message_exit))
+                .setMessage(getString(R.string.message_are_you_sure))
                 .setNegativeButton(android.R.string.cancel, null)//sin listener
                 .setPositiveButton(android.R.string.ok, DialogInterface.OnClickListener { dialog, which ->  this.finish()})
                 .show()

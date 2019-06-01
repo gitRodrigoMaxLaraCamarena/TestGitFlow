@@ -113,9 +113,9 @@ class CreateAccountActivity : AppCompatActivity() {
 
         select_create_gender.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.radioButton_male -> sex = "Male"
-                R.id.radioButton_female -> sex = "Female"
-                R.id.radioButton_other -> sex = "I don't Know"
+                R.id.radioButton_male -> sex = getString(R.string.edit_account_label_male)
+                R.id.radioButton_female -> sex = getString(R.string.edit_account_label_female)
+                R.id.radioButton_other -> sex = getString(R.string.edit_account_label_other)
             }
         })
     }
@@ -132,7 +132,7 @@ class CreateAccountActivity : AppCompatActivity() {
         user.fullname = name
         user.image = " "
         user.password = password
-        user.sex = sex
+        user.gender = sex
 
         NearmeApi.getUserType(
             null,
@@ -145,17 +145,23 @@ class CreateAccountActivity : AppCompatActivity() {
                         }
                     }
                 }
-                    if(user.type_user_id.id == 2){
-                        NearmeApi.postUser(user)
-                        Notifications.toastNotifications(getString(R.string.notifications_success), application, Toast.LENGTH_SHORT, Gravity.BOTTOM )
-
+                    if(user.type_user_id.id != 0){
+                        NearmeApi.postUser(
+                            user,
+                            {
+                                Notifications.toastNotifications(getString(R.string.notifications_success), application, Toast.LENGTH_SHORT, Gravity.BOTTOM )
+                            }, {
+                                Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
+                            },getString(R.string.nearme_api_key)
+                        )
                     }else{
                         Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
                     }
                         Log.d("valor de type", user.type_user_id.toString())
             }, {
                 Log.d("NewsApi", "${it.errorBody} ${it.localizedMessage}")
-                    Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
-            })
+                Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
+            },getString(R.string.nearme_api_key)
+            )
     }
 }

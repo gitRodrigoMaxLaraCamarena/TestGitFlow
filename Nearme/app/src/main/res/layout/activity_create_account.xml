@@ -195,7 +195,7 @@
 
                 <RadioButton
                         android:id="@+id/radioButton_other"
-                        android:text="@string/edit_account_label_I_dont_know"
+                        android:text="@string/edit_account_label_other"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                 />

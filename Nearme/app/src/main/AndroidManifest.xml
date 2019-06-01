@@ -18,6 +18,20 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        <meta-data
+                android:name="DATABASE"
+                android:value="near_me.db"/>
+        <meta-data
+                android:name="VERSION"
+                android:value="1"/>
+        <meta-data
+                android:name="QUERY_LOG"
+                android:value="true"/>
+        <meta-data
+                android:name="DOMAIN_PACKAGE_NAME"
+                android:value="resasoftware.com.pe.nearme.models"/>
+
         <activity android:name=".controllers.activities.CommentActivity">
         </activity>
         <activity android:name=".controllers.activities.EnterpriseDetailsActivity">
