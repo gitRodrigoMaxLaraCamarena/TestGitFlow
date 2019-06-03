@@ -20,6 +20,7 @@ class NearmeApi {
         private val enterpriseURL = "$BASE_URL/enterprises"
         private val typeUserURL = "$BASE_URL/type_users"
         private val userURL = "$BASE_URL/users"
+        private val loginURL = "$userURL/search"
         private val TAG = "NearmeApi"
 
         fun getEnterprises(id: Int?, responseHandler: (ArrayList<User>?) -> Unit,
@@ -47,11 +48,51 @@ class NearmeApi {
             get(typeUserURL, id, responseHandler, errorHandler, key)
         }
 
+        fun loginUser(username:String, password: String, responseHandler: (User?) -> Unit,
+                        errorHandler: (ANError) -> Unit, key: String) {
+            val url = "$loginURL/$username/$password"
+            login(url, responseHandler, errorHandler, key)
+        }
+
         fun postUser(user: User, responseHandler: (JSONObject?) -> Unit,
                      errorHandler: (ANError?) -> Unit, key: String) {
             val json: JSONObject = user.converToJson()
             post(json, userURL, responseHandler, errorHandler, key)
 
+        }
+
+        fun putUser(user: User, responseHandler: (User?) -> Unit,
+                     errorHandler: (ANError?) -> Unit, key: String) {
+            val json: JSONObject = user.converToJson()
+            put(userURL, json, responseHandler, errorHandler, key)
+
+        }
+
+        private inline fun login(url: String, crossinline responseHandler: (User?) -> Unit,
+                                           crossinline errorHandler: (ANError) -> Unit, key: String)
+        {
+            AndroidNetworking.get(url)
+                .addHeaders("Authorization", "Bearer $key")
+                .setTag(TAG)
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsObject(User::class.java,
+                    object : ParsedRequestListener<User> {
+                        override fun onResponse(response: User?) {
+                            response?.apply {
+                                responseHandler(response)
+                            }
+
+                        }
+
+                        override fun onError(anError: ANError?) {
+                            anError?.apply {
+                                Log.d(TAG, "Error $errorCode: $errorBody $localizedMessage")
+                                errorHandler(this)
+                            }
+                        }
+                    }
+                )
         }
 
         // GET - All
@@ -87,7 +128,7 @@ class NearmeApi {
                 )
         }
 
-        // Post - All
+        // POST - All
         private inline fun  post(obj: JSONObject, url: String, crossinline responseHandler: (JSONObject?) -> Unit,
                                  crossinline errorHandler: (ANError?) -> Unit, key: String) {
             AndroidNetworking.post(url)
@@ -106,6 +147,36 @@ class NearmeApi {
                         errorHandler(anError)
                     }
                 })
+        }
+
+        // PUT - All
+        private inline fun <reified T> put(url: String, obj: JSONObject, crossinline responseHandler: (T?) -> Unit,
+                                           crossinline errorHandler: (ANError) -> Unit, key: String)
+        {
+            AndroidNetworking.put(url)
+                .addHeaders("Authorization", "Bearer $key")
+                .addHeaders("Content-Type", "application/json")
+                .addJSONObjectBody(obj)
+                .setTag(TAG)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsObject(T::class.java,
+                    object : ParsedRequestListener<T?> {
+                        override fun onResponse(response: T?) {
+                            response?.apply {
+                                responseHandler(response)
+                            }
+
+                        }
+
+                        override fun onError(anError: ANError?) {
+                            anError?.apply {
+                                Log.d(TAG, "Error $errorCode: $errorBody $localizedMessage")
+                                errorHandler(this)
+                            }
+                        }
+                    }
+                )
         }
     }
 }

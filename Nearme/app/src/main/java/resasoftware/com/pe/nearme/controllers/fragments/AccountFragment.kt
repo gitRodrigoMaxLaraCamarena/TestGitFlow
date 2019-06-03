@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_account.*
 import resasoftware.com.pe.nearme.R
 import resasoftware.com.pe.nearme.controllers.activities.EditAccountActivity
@@ -27,7 +28,6 @@ private const val ARG_PARAM2 = "param2"
 class AccountFragment : Fragment() {
     var image: Int = 1
     var user: User = User()
-    var preferences: ArrayList<Preferences> = ArrayList<Preferences>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +35,6 @@ class AccountFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_account, container, false)
-        preferences = Preferences.allPreferences()
     }
 
     override fun onResume() {
@@ -52,16 +51,7 @@ class AccountFragment : Fragment() {
             text_email.text = user.email
             text_password.text = user.password
             text_gender.text = user.gender
-
-            if(preferences.size==0){
-                text_preferences.text = getString(R.string.account_label_no_preferences)
-            }else{
-                var pref = ""
-                for (item in preferences){
-                    pref += item.name + "\n"
-                }
-                text_preferences.text = pref
-            }
+            text_f_username.text = user.username
         }
         image_visibilitypassword.setOnClickListener {
             image*=-1

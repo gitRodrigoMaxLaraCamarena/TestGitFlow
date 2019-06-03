@@ -13,7 +13,7 @@
     <string name="nav_title_account">Account</string>
     <string name="nav_title_settings">Settings</string>
     <!-- Login Activity -->
-    <string name="login_label_email">E-MAIL</string>
+    <string name="login_label_user_name">USER NAME</string>
     <string name="login_label_password">PASSWORD</string>
     <string name="login_label_forgot_password">Forgot your password?</string>
     <string name="login_button_sign_in">SIGN IN</string>
@@ -29,22 +29,25 @@
     <string name="account_label_email">Email</string>
     <string name="account_label_password">Password</string>
     <string name="account_label_gender">Gender</string>
+    <string name="account_label_username">User name</string>
     <!-- Account Fragment, Activity-->
-    <string name="account_label_preferences">Preferences</string>
     <string name="account_label_edit">Edit</string>
+    <string name="account_label_add_preference">Add preferences</string>
     <!--Edit Account Activity-->
     <string name="edit_account_label_title_my_account">My Account - Edit</string>
     <!--Edit Account ans Create Account Activity -->
     <string name="edit_account_label_male">Male</string>
     <string name="edit_account_label_female">Female</string>
-    <string name="edit_account_label_other">Other</string>
     <string name="edit_account_label_save">Save</string>
     <!-- Settings Fragment -->
     <string name="settings_label_search_range">Search Range</string>
     <string name="settings_label_map_style">Map Style</string>
     <string name="settings_label_save">Save</string>
+    <string name="settings_label_preferences">Preferences</string>
+
     <!-- Common placeholders -->
     <string name="placeholder_full_name">Your full name</string>
+    <string name="placeholder_user_name">Your user name</string>
     <string name="placeholder_email">Your email</string>
     <string name="placeholder_password">Your password</string>
     <!-- Common Error label -->
@@ -52,8 +55,10 @@
     <string name="error_label_email">invalid email address</string>
     <string name="error_label_password">password can not be null or empty</string>
     <string name="error_label_full_name_size">minimum 4 characters</string>
+    <string name="error_label_user_name_size">minimum 4 characters</string>
     <string name="error_label_password_size">"minimum 7 characters"</string>
-    <string name="error_label_general">invalid email or password</string>
+    <string name="error_label_general">invalid username or password</string>
+    <string name="error_label_username">username can not be null or empty</string>
     <!-- Notification -->
     <string name="notifications_success">success</string>
     <string name="notifications_fail">fail</string>

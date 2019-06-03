@@ -7,7 +7,5 @@ import com.orm.SugarApp
 class NearmeApp : SugarApp() {
     override fun onCreate() {
         super.onCreate()
-        AndroidNetworking.initialize(applicationContext)
-        AndroidNetworking.setParserFactory(JacksonParserFactory())
     }
 }

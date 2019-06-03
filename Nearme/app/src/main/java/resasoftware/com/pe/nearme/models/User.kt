@@ -1,6 +1,5 @@
 package resasoftware.com.pe.nearme.models
 
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.Serializable
 
@@ -8,7 +7,7 @@ data class User(
     var id: Int,
     var email: String,
     var fullname: String,
-    var image: String?,
+    var image: String,
     var password: String,
     var gender: String,
     var username: String,
@@ -18,21 +17,24 @@ data class User(
         0,
         "",
         "",
+        "empty",
         "",
         "",
         "",
-        "username",
         Type_User()
     )
 
     fun converToJson(): JSONObject{
         val jsonUser = JSONObject()
+        var jsonType = type_user_id.converToJson()
+
+        /*
         val jsonType = JSONObject()
 
         jsonType.put("id",type_user_id.id)
         jsonType.put("description",type_user_id.description)
         jsonType.put("name",type_user_id.name)
-
+        */
         jsonUser.put("email",email)
         jsonUser.put("fullname",fullname)
         jsonUser.put("id",id)

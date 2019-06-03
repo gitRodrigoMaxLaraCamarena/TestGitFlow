@@ -20,21 +20,23 @@ class CreateAccountActivity : AppCompatActivity() {
     private var email: String = ""
     private var password: String = ""
     private var name: String = ""
+    private var username: String = ""
     private var sex: String = ""
 
     private val pattern = Patterns.EMAIL_ADDRESS
     private var passwordError:String = ""
     private var emailError:String = ""
     private var nameError:String = ""
+    private var usernameError:String = ""
+
     private var nameErrorSize:String = ""
+    private var usernameErrorSize:String = ""
     private var passwordErrorSize:String = ""
-    //private val passwordError = "password can't be null or empty"
-    //private var emailError = "invalid email address"
-    //private val nameError = "password can't be null or empty"
 
     private var validEmail: Boolean = false
     private var validPassword: Boolean = false
     private var validName: Boolean = false
+    private var validUserName: Boolean = false
 
     private var image: Int = 1
 
@@ -46,8 +48,11 @@ class CreateAccountActivity : AppCompatActivity() {
         passwordError = getString(R.string.error_label_password)
         emailError = getString(R.string.error_label_email)
         nameError = getString(R.string.error_label_full_name)
+        usernameError = getString(R.string.error_label_username)
+
         passwordErrorSize = getString(R.string.error_label_password_size)
         nameErrorSize = getString(R.string.error_label_full_name_size)
+        usernameErrorSize = getString(R.string.error_label_user_name_size)
 
         image_create_visibilitypassword.setOnClickListener {
             image*=-1
@@ -65,6 +70,7 @@ class CreateAccountActivity : AppCompatActivity() {
             email = input_create_email.text.toString()
             password = input_create_password.text.toString()
             name = input_create_fullname.text.toString()
+            username = input_create_username.text.toString()
 
             email.apply {
                 if (!validateEmail(this)){
@@ -106,7 +112,22 @@ class CreateAccountActivity : AppCompatActivity() {
                 }
             }
 
-            if(validEmail and validPassword and validName){
+            username.apply {
+                if(this.isBlank()) {
+                    text_create_error_username.text = usernameError
+                    validUserName = false
+                }else{
+                    if(username.length < 4){
+                        text_create_error_username.text = usernameErrorSize
+                        validUserName = false
+                    }else {
+                        text_create_error_username.text = ""
+                        validUserName = true
+                    }
+                }
+            }
+
+            if(validEmail and validPassword and validName and validUserName){
                 create()
             }
         }
@@ -115,7 +136,6 @@ class CreateAccountActivity : AppCompatActivity() {
             when (checkedId) {
                 R.id.radioButton_male -> sex = getString(R.string.edit_account_label_male)
                 R.id.radioButton_female -> sex = getString(R.string.edit_account_label_female)
-                R.id.radioButton_other -> sex = getString(R.string.edit_account_label_other)
             }
         })
     }
@@ -130,9 +150,9 @@ class CreateAccountActivity : AppCompatActivity() {
         user.id=0
         user.email= email
         user.fullname = name
-        user.image = " "
         user.password = password
         user.gender = sex
+        user.username = username
 
         NearmeApi.getUserType(
             null,
