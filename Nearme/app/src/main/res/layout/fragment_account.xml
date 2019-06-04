@@ -97,10 +97,36 @@
                 />
 
                 <TextView
-                        android:id="@+id/text_label_password"
+                        android:id="@+id/text_label_f_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/text_email"
+                        android:text="@string/account_label_username"
+                        android:textSize="23dp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="25dp"
+                        android:layout_marginTop="25dp"
+                />
+
+                <TextView
+                        android:id="@+id/text_f_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/text_label_f_username"
+                        android:text="Your username"
+                        android:textSize="20dp"
+                        android:textStyle="italic"
+                        android:layout_marginStart="25dp"
+                        android:inputType="text"
+                        android:layout_marginEnd="25dp"
+                        app:layout_constraintHorizontal_bias="0.0"/>
+
+                <TextView
+                        android:id="@+id/text_label_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/text_f_username"
                         android:text="@string/account_label_password"
                         android:textSize="23dp"
                         android:textStyle="bold"
@@ -158,37 +184,12 @@
                         android:layout_marginEnd="25dp"
                 />
 
-                <TextView
-                        android:id="@+id/text_label_preferences"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/text_gender"
-                        android:text="@string/account_label_preferences"
-                        android:textSize="23dp"
-                        android:textStyle="bold"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginEnd="25dp"
-                        android:layout_marginTop="25dp"
-                />
-
-                <TextView
-                        android:id="@+id/text_preferences"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/text_label_preferences"
-                        android:text="Your preferences"
-                        android:textSize="20dp"
-                        android:textStyle="italic"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginEnd="25dp"
-                />
-
                 <LinearLayout
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_width="wrap_content"
                         android:orientation="horizontal"
-                        app:layout_constraintTop_toBottomOf="@id/text_preferences"
+                        app:layout_constraintTop_toBottomOf="@id/text_gender"
                         android:layout_marginTop="40dp"
                         android:layout_height="wrap_content">
 
@@ -196,11 +197,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_edit_black_24dp"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="15dp"
                             android:layout_marginBottom="20dp"
                     />
 
-                    <TextView
+                    <Button
                             android:id="@+id/buttonEdit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

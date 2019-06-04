@@ -19,14 +19,15 @@ import resasoftware.com.pe.nearme.network.Notifications
 
 
 class LoginActivity : AppCompatActivity() {
-    private var email: String = ""
+    private var username: String = ""
     private var password: String = ""
 
     private var passwordError: String = ""
+    private var usernameError: String = ""
     private var emailError: String = ""
     private var generalError: String = ""
 
-    private var emailvalid: Boolean = false
+    private var usernamevalid: Boolean = false
     private var passwordvalid: Boolean = false
 
     private val pattern = Patterns.EMAIL_ADDRESS
@@ -42,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
         forgotpassword.visibility = View.INVISIBLE
         loadSession()
         passwordError = getString(R.string.error_label_password)
+        usernameError = getString(R.string.error_label_username)
         emailError = getString(R.string.error_label_email)
         generalError = getString(R.string.error_label_general)
         check_rememberme.isChecked = true
@@ -52,18 +54,18 @@ class LoginActivity : AppCompatActivity() {
         super.onResume()
 
         button_signin.setOnClickListener {
-            email = input_email.text.toString()
+            username = input_username.text.toString()
             password = input_password.text.toString()
 
 
 
-            email.apply {
-                if (!validateEmail(this)){
-                    text_emailerror.text = emailError
-                    emailvalid = false
+            username.apply {
+                if(this.isBlank()) {
+                    text_username_error.text = usernameError
+                    usernamevalid = false
                 }else{
-                    text_emailerror.text = ""
-                    emailvalid = true
+                    text_username_error.text = ""
+                    usernamevalid = true
                 }
             }
 
@@ -77,8 +79,8 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            if(passwordvalid and emailvalid){
-                authorization(email, password)
+            if(passwordvalid and usernamevalid){
+                authorization(username, password)
             }
         }
 
@@ -113,31 +115,35 @@ class LoginActivity : AppCompatActivity() {
         return pattern.matcher(value).matches()
     }
 
-    private fun authorization(email: String, password: String){ //cambiar por un usuario
+    private fun authorization(username: String, password: String){
         val intent = Intent(this, MainActivity::class.java)
-        Log.d("NEARMEIInicial","Prueba")
-        NearmeApi.getUsers(
-            null,
+        NearmeApi.loginUser(
+            username,
+            password,
             {
                 it?.apply {
-                    for (item in it) {
-                        if((item.email == email) and (item.password == password)) {
-                            text_generalerror.text = ""
-                            if(check_rememberme.isChecked ){
-                                saveSession()
-                            }
-                            finish()
-                            intent.putExtra("user", item)
-                            startActivity(intent)
-                        }else{
-                            text_generalerror.text = generalError
-                        }
+                    text_generalerror.text = ""
+                    if(check_rememberme.isChecked ){
+                        saveSession()
                     }
+                    finish()
+                    intent.putExtra("user", it)
+                    startActivity(intent)
                 }
             }, {
-                Log.d("NEARMETESTNewsApi", "${it.errorBody} ${it.localizedMessage}")
-                Notifications.toastNotifications(getString(R.string.notifications_fail), this, Toast.LENGTH_SHORT, Gravity.BOTTOM )
-            })
+                if(it.errorCode == 404){
+                    text_generalerror.text = generalError
+                }else {
+                    Log.d("NEARMETESTNewsApi", "${it.errorBody} ${it.localizedMessage}")
+                    Notifications.toastNotifications(
+                        getString(R.string.notifications_fail),
+                        this,
+                        Toast.LENGTH_SHORT,
+                        Gravity.BOTTOM
+                    )
+                }
+            },getString(R.string.nearme_api_key)
+            )
     }
 
     private fun sendEmail(email: String){
@@ -147,22 +153,22 @@ class LoginActivity : AppCompatActivity() {
     private fun loadSession(){
         val preference: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
 
-        val email: String = preference.getString("email","")
+        val email: String = preference.getString("username","")
         val password: String = preference.getString("password","")
 
-        input_email.setText(email)
+        input_username.setText(email)
         input_password.setText(password)
     }
 
     private fun saveSession(){
         val preference: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
 
-        val email: String = input_email.text.toString()
+        val username: String = input_username.text.toString()
         val password: String = input_password.text.toString()
 
         val editor: SharedPreferences.Editor = preference.edit()
 
-        editor.putString("email",email)
+        editor.putString("username",username)
         editor.putString("password",password)
 
         editor.commit()

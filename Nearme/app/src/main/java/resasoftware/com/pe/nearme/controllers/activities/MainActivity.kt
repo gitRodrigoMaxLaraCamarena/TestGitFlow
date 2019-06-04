@@ -13,8 +13,12 @@ import resasoftware.com.pe.nearme.controllers.fragments.MapFragment
 import resasoftware.com.pe.nearme.controllers.fragments.SettingsFragment
 import android.content.DialogInterface
 import android.app.AlertDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.view.KeyEvent
 import kotlinx.android.synthetic.main.fragment_account.*
+import kotlinx.android.synthetic.main.fragment_settings.*
+import resasoftware.com.pe.nearme.models.Preferences
 import resasoftware.com.pe.nearme.models.User
 
 

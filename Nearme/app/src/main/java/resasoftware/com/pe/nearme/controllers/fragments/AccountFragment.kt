@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_account.*
 import resasoftware.com.pe.nearme.R
 import resasoftware.com.pe.nearme.controllers.activities.EditAccountActivity
+import resasoftware.com.pe.nearme.models.Preferences
 import resasoftware.com.pe.nearme.models.User
 
 
@@ -48,7 +50,8 @@ class AccountFragment : Fragment() {
             text_fullname.text = user.fullname
             text_email.text = user.email
             text_password.text = user.password
-            text_gender.text = user.sex
+            text_gender.text = user.gender
+            text_f_username.text = user.username
         }
         image_visibilitypassword.setOnClickListener {
             image*=-1

@@ -3,7 +3,6 @@
     <string name="app_name">Nearme</string>
     <string name="login_button_sign_in">INICIAR SESION</string>
     <string name="login_check_box_remember_me">Recuerdame</string>
-    <string name="login_label_email">CORREO</string>
     <string name="login_label_forgot_password">¿Olvidaste tu contraseña?</string>
     <string name="login_label_password">CONTRASEÑA</string>
     <string name="nav_title_account">Cuenta</string>
@@ -17,7 +16,6 @@
     <string name="account_label_full_name">Nombre Completo</string>
     <string name="account_label_gender">Genero</string>
     <string name="account_label_password">Contraseña</string>
-    <string name="account_label_preferences">Preferencias</string>
     <string name="account_label_title_my_account">Mi Cuenta</string>
     <string name="edit_account_label_female">Femenino</string>
     <string name="edit_account_label_male">Masculino</string>
@@ -35,8 +33,15 @@
     <string name="error_label_password">contraseña no debe ser nulo o vacio</string>
     <string name="error_label_password_size">mínimo 7 caracteres</string>
     <string name="error_label_full_name_size">mínimo 4 caracteres</string>
-    <string name="error_label_general">correo o contraseña invalidos</string>
+    <string name="error_label_general">nombre de usuario o contraseña invalidos</string>
     <string name="message_are_you_sure">¿Estas seguro?</string>
     <string name="message_exit">Salir</string>
-    <string name="edit_account_label_other">Otro</string>
+    <string name="account_label_no_preferences">No tienes preferencias</string>
+    <string name="login_label_user_name">NOMBRE DE USUARIO</string>
+    <string name="error_label_username">nombre de usuario no debe ser nulo o vacio</string>
+    <string name="account_label_username">Nombre de usuario</string>
+    <string name="placeholder_user_name">Tu nombre de usuario</string>
+    <string name="error_label_user_name_size">minimo 4 caracteres</string>
+    <string name="account_label_add_preference">Agregar preferencias</string>
+    <string name="settings_label_preferences">Preferencias</string>
 </resources>
