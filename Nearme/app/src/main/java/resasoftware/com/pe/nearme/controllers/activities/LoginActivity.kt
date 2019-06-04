@@ -115,6 +115,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun authorization(email: String, password: String){ //cambiar por un usuario
         val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
         Log.d("NEARMEIInicial","Prueba")
         NearmeApi.getUsers(
             null,

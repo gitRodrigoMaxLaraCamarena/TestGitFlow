@@ -5,30 +5,23 @@ import android.Manifest
 import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.location.LocationManager.NETWORK_PROVIDER
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.NonNull
-import androidx.annotation.Nullable
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.*
 import resasoftware.com.pe.nearme.R
 import resasoftware.com.pe.nearme.controllers.activities.EnterpriseDetailsActivity
 
@@ -42,6 +35,7 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 
+@Suppress("DEPRECATED_IDENTITY_EQUALS")
 class MapFragment() : Fragment(), OnMapReadyCallback, LocationListener {
 
 
@@ -56,6 +50,7 @@ class MapFragment() : Fragment(), OnMapReadyCallback, LocationListener {
 
     private var location: Location? = null
 
+    var map: String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,6 +68,35 @@ class MapFragment() : Fragment(), OnMapReadyCallback, LocationListener {
 
     }
 
+    fun changeMapStyle(){
+        var style = R.raw.mapnormalstyle
+        if(map=="Normal") {
+            style=R.raw.mapnormalstyle
+        }
+        else {
+            if (map=="Night"){
+                style=R.raw.mapnightstyle
+            }
+        }
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            val success = gMap!!.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    context, style
+                )
+            )
+            if (!success) {
+                Log.e(TAG, "Maps Fragment,Style parsing failed.")
+            }
+        } catch (e: Resources.NotFoundException) {
+            Log.e(TAG, "Maps Fragment,Can't find style. Error: ", e)
+        }
+        val lima = LatLng(-12.0431800, -77.0282400)
+        gMap!!.moveCamera(CameraUpdateFactory.newLatLng(lima))
+
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         gMap = googleMap
 
@@ -81,6 +105,7 @@ class MapFragment() : Fragment(), OnMapReadyCallback, LocationListener {
        gMap!!.addMarker(MarkerOptions().position(lima).title("Marker in Lima"))
        gMap!!.moveCamera(CameraUpdateFactory.newLatLng(lima))
 
+        changeMapStyle()
 
         locationManager = activity?.getSystemService(LOCATION_SERVICE) as LocationManager
 
