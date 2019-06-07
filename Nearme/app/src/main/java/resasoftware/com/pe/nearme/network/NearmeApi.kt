@@ -61,7 +61,7 @@ class NearmeApi {
 
         }
 
-        fun putUser(user: User, responseHandler: (User?) -> Unit,
+        fun putUser(user: User, responseHandler: (JSONObject?) -> Unit,
                      errorHandler: (ANError?) -> Unit, key: String) {
             val json: JSONObject = user.converToJson()
             put(userURL, json, responseHandler, errorHandler, key)
@@ -150,8 +150,8 @@ class NearmeApi {
         }
 
         // PUT - All
-        private inline fun <reified T> put(url: String, obj: JSONObject, crossinline responseHandler: (T?) -> Unit,
-                                           crossinline errorHandler: (ANError) -> Unit, key: String)
+        private inline fun put(url: String, obj: JSONObject, crossinline responseHandler: (JSONObject?) -> Unit,
+                                           crossinline errorHandler: (ANError?) -> Unit, key: String)
         {
             AndroidNetworking.put(url)
                 .addHeaders("Authorization", "Bearer $key")
@@ -160,23 +160,15 @@ class NearmeApi {
                 .setTag(TAG)
                 .setPriority(Priority.MEDIUM)
                 .build()
-                .getAsObject(T::class.java,
-                    object : ParsedRequestListener<T?> {
-                        override fun onResponse(response: T?) {
-                            response?.apply {
-                                responseHandler(response)
-                            }
-
-                        }
-
-                        override fun onError(anError: ANError?) {
-                            anError?.apply {
-                                Log.d(TAG, "Error $errorCode: $errorBody $localizedMessage")
-                                errorHandler(this)
-                            }
-                        }
+                .getAsJSONObject(object : JSONObjectRequestListener{
+                    override fun onResponse(response: JSONObject?) {
+                        responseHandler(response)
                     }
-                )
+
+                    override fun onError(anError: ANError?) {
+                        errorHandler(anError)
+                    }
+                })
         }
     }
 }

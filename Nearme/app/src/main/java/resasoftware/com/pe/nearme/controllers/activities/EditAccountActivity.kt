@@ -85,6 +85,12 @@ class EditAccountActivity : AppCompatActivity() {
 
         buttonSave.setOnClickListener {
             if(ValidateInputs()){
+                user.email= email
+                user.fullname = name
+                user.password = password
+                user.username = username
+
+
                 NearmeApi.putUser(
                     user,
                     {

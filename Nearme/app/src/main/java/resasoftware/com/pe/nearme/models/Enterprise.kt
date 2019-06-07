@@ -9,6 +9,8 @@ data class Enterprise(
     val image: String,
     val location: String,
     val name: String,
+    val longitude: String,
+    val latitude: String,
 	val star: String
 ): Serializable {
     constructor() : this(
@@ -17,7 +19,9 @@ data class Enterprise(
         "",
         "",
 		"",
-		"",
+        "",
+        "",
+        "",
 		""
     )
 }

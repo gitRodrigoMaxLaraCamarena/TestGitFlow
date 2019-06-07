@@ -40,7 +40,7 @@ data class User(
         jsonUser.put("id",id)
         jsonUser.put("image",image)
         jsonUser.put("password",password)
-        jsonUser.put("sex",gender)
+        jsonUser.put("gender",gender)
         jsonUser.put("username",username)
         jsonUser.put("type_user_id",jsonType)
 

@@ -2,8 +2,10 @@ package resasoftware.com.pe.nearme.controllers.fragments
 
 
 import android.Manifest
+import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.location.Location
@@ -30,6 +32,8 @@ import resasoftware.com.pe.nearme.controllers.activities.EnterpriseDetailsActivi
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
+var map: String = ""
+var range: Int = 0
 /**
  * A simple [Fragment] subclass.
  *
@@ -50,7 +54,6 @@ class MapFragment() : Fragment(), OnMapReadyCallback, LocationListener {
 
     private var location: Location? = null
 
-    var map: String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,6 +62,10 @@ class MapFragment() : Fragment(), OnMapReadyCallback, LocationListener {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadPreference()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -74,7 +81,7 @@ class MapFragment() : Fragment(), OnMapReadyCallback, LocationListener {
             style=R.raw.mapnormalstyle
         }
         else {
-            if (map=="Night"){
+            if (map=="Satelital"){ //Nigth fake
                 style=R.raw.mapnightstyle
             }
         }
@@ -102,8 +109,9 @@ class MapFragment() : Fragment(), OnMapReadyCallback, LocationListener {
 
         // Add a marker in Sydney, Australia, and move the camera.
         val lima = LatLng(-12.0431800, -77.0282400)
-       gMap!!.addMarker(MarkerOptions().position(lima).title("Marker in Lima"))
-       gMap!!.moveCamera(CameraUpdateFactory.newLatLng(lima))
+        gMap!!.addMarker(MarkerOptions().position(lima).title("Marker in Lima"))
+        gMap!!.moveCamera(CameraUpdateFactory.newLatLng(lima))
+
 
         changeMapStyle()
 
@@ -186,4 +194,11 @@ class MapFragment() : Fragment(), OnMapReadyCallback, LocationListener {
 
     }
 
+    private fun loadPreference(){
+        val preference: SharedPreferences? = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)
+
+        range = preference?.getInt("range",5) as Int
+        map = preference?.getString("mapStyle","Normal") as String
+
+    }
 }

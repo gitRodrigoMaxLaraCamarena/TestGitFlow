@@ -21,7 +21,6 @@ class CreateAccountActivity : AppCompatActivity() {
     private var password: String = ""
     private var name: String = ""
     private var username: String = ""
-    private var sex: String = ""
 
     private val pattern = Patterns.EMAIL_ADDRESS
     private var passwordError:String = ""
@@ -39,20 +38,20 @@ class CreateAccountActivity : AppCompatActivity() {
     private var validUserName: Boolean = false
 
     private var image: Int = 1
+    private var user: User = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)
-        radioButton_male.isChecked = true
-        sex = "Male"
         passwordError = getString(R.string.error_label_password)
         emailError = getString(R.string.error_label_email)
         nameError = getString(R.string.error_label_full_name)
         usernameError = getString(R.string.error_label_username)
-
         passwordErrorSize = getString(R.string.error_label_password_size)
         nameErrorSize = getString(R.string.error_label_full_name_size)
         usernameErrorSize = getString(R.string.error_label_user_name_size)
+        radioButton_male.isChecked = true
+        user.gender = getString(R.string.edit_account_label_male)
 
         image_create_visibilitypassword.setOnClickListener {
             image*=-1
@@ -134,8 +133,8 @@ class CreateAccountActivity : AppCompatActivity() {
 
         select_create_gender.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.radioButton_male -> sex = getString(R.string.edit_account_label_male)
-                R.id.radioButton_female -> sex = getString(R.string.edit_account_label_female)
+                R.id.radioButton_male -> user.gender = getString(R.string.edit_account_label_male)
+                R.id.radioButton_female -> user.gender = getString(R.string.edit_account_label_female)
             }
         })
     }
@@ -145,13 +144,10 @@ class CreateAccountActivity : AppCompatActivity() {
     }
 
     private fun create(){
-        var user: User = User()
-        //var type: Type_User = Type_User()
         user.id=0
         user.email= email
         user.fullname = name
         user.password = password
-        user.gender = sex
         user.username = username
 
         NearmeApi.getUserType(
@@ -166,6 +162,7 @@ class CreateAccountActivity : AppCompatActivity() {
                     }
                 }
                     if(user.type_user_id.id != 0){
+                        Log.d("gender", user.gender)
                         NearmeApi.postUser(
                             user,
                             {

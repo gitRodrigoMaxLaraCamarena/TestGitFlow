@@ -46,7 +46,7 @@ class SettingsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
+        AllPreferences.removeAllViews()
         loadSettings()
 
         var selects: ArrayList<CheckBox> = ArrayList<CheckBox>()
