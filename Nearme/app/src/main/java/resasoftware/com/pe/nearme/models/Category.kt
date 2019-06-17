@@ -1,5 +1,6 @@
 package resasoftware.com.pe.nearme.models
 
+import org.json.JSONObject
 import java.io.Serializable
 
 data class Category(
@@ -12,4 +13,15 @@ data class Category(
         "",
         ""
     )
+
+    fun converToJson(): JSONObject {
+        val jsonCategory = JSONObject()
+
+        jsonCategory.put("id", id)
+        jsonCategory.put("name", name)
+        jsonCategory.put("description", description)
+
+        return jsonCategory
+    }
+
 }

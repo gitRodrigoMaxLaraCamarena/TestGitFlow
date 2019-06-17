@@ -151,7 +151,6 @@ class CreateAccountActivity : AppCompatActivity() {
         user.username = username
 
         NearmeApi.getUserType(
-            null,
             {
                 it?.apply {
                     for (item in  it){

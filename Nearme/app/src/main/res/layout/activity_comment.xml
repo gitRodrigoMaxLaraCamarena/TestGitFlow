@@ -12,9 +12,20 @@
             android:id="@+id/textInputLayout" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Write a comment"/>
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/placeholder_comment"/>
+
+        <TextView
+                android:layout_margin="20dp"
+                android:textColor="@color/colorError"
+                android:id="@+id/errorComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

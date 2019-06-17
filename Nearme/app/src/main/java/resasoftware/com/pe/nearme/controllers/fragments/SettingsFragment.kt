@@ -62,7 +62,6 @@ class SettingsFragment : Fragment() {
         })
 
         NearmeApi.getCategories(
-            null,
             {
                 if(it != null) {
                     val categories: ArrayList<Category> = it as ArrayList<Category>

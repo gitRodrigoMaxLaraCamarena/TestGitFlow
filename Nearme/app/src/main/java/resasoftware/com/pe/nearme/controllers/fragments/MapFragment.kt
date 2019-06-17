@@ -26,6 +26,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import resasoftware.com.pe.nearme.R
 import resasoftware.com.pe.nearme.controllers.activities.EnterpriseDetailsActivity
+import resasoftware.com.pe.nearme.models.Enterprise
+import resasoftware.com.pe.nearme.models.User
+import resasoftware.com.pe.nearme.network.NearmeApi
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,6 +37,7 @@ private const val ARG_PARAM2 = "param2"
 
 var map: String = ""
 var range: Int = 0
+
 /**
  * A simple [Fragment] subclass.
  *
@@ -42,7 +46,7 @@ var range: Int = 0
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class MapFragment() : Fragment(), OnMapReadyCallback, LocationListener {
 
-
+    var user: User = User()
 
     internal var TAG = "Near Me Maps:"
     private var gMap: GoogleMap? = null
@@ -65,6 +69,9 @@ class MapFragment() : Fragment(), OnMapReadyCallback, LocationListener {
     override fun onResume() {
         super.onResume()
         loadPreference()
+        activity?.intent?.extras?.apply {
+            user = getSerializable("user") as User
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,9 +115,22 @@ class MapFragment() : Fragment(), OnMapReadyCallback, LocationListener {
         gMap = googleMap
 
         // Add a marker in Sydney, Australia, and move the camera.
-        val lima = LatLng(-12.0431800, -77.0282400)
-        gMap!!.addMarker(MarkerOptions().position(lima).title("Marker in Lima"))
-        gMap!!.moveCamera(CameraUpdateFactory.newLatLng(lima))
+
+        NearmeApi.getEnterprises(
+            {
+                it as ArrayList<Enterprise>
+                for(item in it){
+                    val point = LatLng(item.latitude.toDouble(), item.longitude.toDouble())
+                    gMap!!.addMarker(MarkerOptions().position(point).title(item.name).snippet(item.id.toString()))
+                }
+            },{
+                Log.d("Nerame Api Error: ", it.message)
+            },
+            getString(R.string.nearme_api_key)
+        )
+
+
+        //gMap!!.moveCamera(CameraUpdateFactory.newLatLng(lima))
 
 
         changeMapStyle()
@@ -151,13 +171,13 @@ class MapFragment() : Fragment(), OnMapReadyCallback, LocationListener {
         uiSettings.isZoomControlsEnabled = true
 
        gMap!!.setOnMarkerClickListener {
-            val intent = Intent(context, EnterpriseDetailsActivity::class.java)
-            startActivity(intent)
-
+           val intent = Intent(this.activity, EnterpriseDetailsActivity::class.java)
+           var id = it.snippet.toInt()
+           intent.putExtra("enterpriceID", id)
+           intent.putExtra("user", user)
+           startActivity(intent)
             false
         }
-
-
     }
 
     private fun goToLocationInMap(lat: Double, lng: Double, zoom: Float) {

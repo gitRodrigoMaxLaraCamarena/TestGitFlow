@@ -50,6 +50,7 @@
     <string name="placeholder_user_name">Your user name</string>
     <string name="placeholder_email">Your email</string>
     <string name="placeholder_password">Your password</string>
+    <string name="placeholder_comment">Write a commen</string>
     <!-- Common Error label -->
     <string name="error_label_full_name">full name can not be null or empty</string>
     <string name="error_label_email">invalid email address</string>
@@ -59,6 +60,8 @@
     <string name="error_label_password_size">"minimum 7 characters"</string>
     <string name="error_label_general">invalid username or password</string>
     <string name="error_label_username">username can not be null or empty</string>
+    <string name="error_label_comment">comment can not be null or empty</string>
+    <string name="error_label_comment_size">minimum 8 characters</string>
     <!-- Notification -->
     <string name="notifications_success">success</string>
     <string name="notifications_fail">fail</string>
