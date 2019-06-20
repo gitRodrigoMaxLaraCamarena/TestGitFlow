@@ -4,8 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_enterprise_details.*
+import resasoftware.com.pe.nearme.Adapters.CommentAdapter
 import resasoftware.com.pe.nearme.R
+import resasoftware.com.pe.nearme.models.Comment
 import resasoftware.com.pe.nearme.models.Enterprise
 import resasoftware.com.pe.nearme.models.User
 import resasoftware.com.pe.nearme.network.NearmeApi
@@ -16,6 +19,7 @@ class EnterpriseDetailsActivity : AppCompatActivity() {
     var user: User = User()
     var rating: ArrayList<String> = ArrayList<String>()
     var sumStars: Int = 0
+    var comments: List<Comment> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +28,9 @@ class EnterpriseDetailsActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        var commentsAdapter = CommentAdapter(comments)
+
         intent.extras?.apply{
             var id: Int = getSerializable("enterpriceID") as Int
             user = getSerializable("user") as User
@@ -51,6 +58,41 @@ class EnterpriseDetailsActivity : AppCompatActivity() {
                 getString(R.string.nearme_api_key)
             )
 
+            commentRecyclerView.apply {
+                adapter = commentsAdapter
+                layoutManager = LinearLayoutManager(this.context)
+            }
+            NearmeApi.getComments(
+                enterprise,
+                {
+                    it?.apply {
+                        commentsAdapter.comments = this
+                        commentsAdapter.notifyDataSetChanged()
+                    }
+                },{
+                    commentsAdapter.comments = comments
+                    //temporal
+                    NearmeApi.g(
+                        {
+                            it?.apply {
+                                for (item in it) {
+                                    if(item.enterpriseId.id == enterprise.id) {
+                                        commentsAdapter.comments = it
+                                        break
+                                    }
+                                }
+                                commentsAdapter.notifyDataSetChanged()
+                            }
+                        },{
+
+                        },
+                        getString(R.string.nearme_api_key)
+                    )
+                    //
+                    commentsAdapter.notifyDataSetChanged()
+                },
+                getString(R.string.nearme_api_key)
+            )
         }
 
 

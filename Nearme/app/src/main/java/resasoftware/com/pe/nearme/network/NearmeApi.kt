@@ -14,12 +14,17 @@ class NearmeApi {
     companion object {
         private val BASE_URL = "https://nearme-api-rest.herokuapp.com"
         private val categoryURL = "$BASE_URL/categories"
-        private val commentURL = "$BASE_URL/comments"
+        private val commentURL = "$BASE_URL/comments/search/{enterprise}"
         private val enterpriseURL = "$BASE_URL/enterprises"
         private val typeUserURL = "$BASE_URL/type_users"
         private val userURL = "$BASE_URL/users"
         private val loginURL = "$userURL/search"
         private val TAG = "NearmeApi"
+
+        fun g(responseHandler: (ArrayList<Comment>?) -> Unit,
+                        errorHandler: (ANError) -> Unit, key: String) {
+            get("$BASE_URL/comments",responseHandler,errorHandler, key)
+        }
 
         fun getEnterprises(responseHandler: (ArrayList<Enterprise>?) -> Unit,
                      errorHandler: (ANError) -> Unit, key: String) {
@@ -33,9 +38,10 @@ class NearmeApi {
             getWithID(URL,responseHandler,errorHandler, key)
         }
 
-        fun getComments(responseHandler: (ArrayList<Comment>?) -> Unit,
+        fun getComments(enterprice: Enterprise, responseHandler: (ArrayList<Comment>?) -> Unit,
                      errorHandler: (ANError) -> Unit, key: String) {
-            get(commentURL,responseHandler,errorHandler, key)
+            var json = enterprice.converToJson()
+            getWithBodyParameter(json, commentURL,responseHandler,errorHandler, key)
         }
 
         fun getCategories(responseHandler: (ArrayList<Category>?) -> Unit,
@@ -113,6 +119,37 @@ class NearmeApi {
         {
             AndroidNetworking.get(url)
                 .addHeaders("Authorization", "Bearer $key")
+                .setTag(TAG)
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsObjectList(T::class.java,
+                    object : ParsedRequestListener<ArrayList<T>> {
+                        override fun onResponse(response: ArrayList<T>?) {
+                            response?.apply {
+                                responseHandler(response)
+                            }
+
+                        }
+
+                        override fun onError(anError: ANError?) {
+                            anError?.apply {
+                                Log.d(TAG, "Error $errorCode: $errorBody $localizedMessage")
+                                errorHandler(this)
+                            }
+                        }
+
+                    }
+                )
+        }
+
+        // GET - BodyParameter
+        private inline fun <reified T> getWithBodyParameter(bodyParameter: JSONObject, url: String, crossinline responseHandler: (ArrayList<T>?) -> Unit,
+                                           crossinline errorHandler: (ANError) -> Unit, key: String)
+        {
+            AndroidNetworking.get(url)
+                .addHeaders("Authorization", "Bearer $key")
+                .addHeaders("Content-Type", "application/json")
+                .addPathParameter(bodyParameter)
                 .setTag(TAG)
                 .setPriority(Priority.HIGH)
                 .build()
